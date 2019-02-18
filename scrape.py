@@ -12,8 +12,8 @@ import pandas as pd
 # We will use these id's to build up link to the page with game stats
 def getLinkID(l):
 	
-  # We will create a Firefox driver and run it headless
-  # If you want to see the browser window, remove the options in Firefox()
+	# We will create a Firefox driver and run it headless
+	# If you want to see the browser window, remove the options in Firefox()
 	options = Options()
 	options.headless = True
 	driver = webdriver.Firefox(options = options)
@@ -50,20 +50,32 @@ def getLinkID(l):
 
 # Next we will use the id's that we extracted to build up links 
 def BuildLinks(_list):
-  # The link we are trying to build is structured like this
-  "https://www.flashscore.com/match/AyTNt38e/#match-summary"
-  # Where the AyTNt38e is out id
-  # And our extracted id looks something like 'g_1_lE6tbhNS'
+	# The link we are trying to build is structured like this
+	"https://www.flashscore.com/match/AyTNt38e/#match-summary"
+	# Where the AyTNt38e is out id
+	# And our extracted id looks something like 'g_1_lE6tbhNS'
   
-  _lst = list()
-  
-  for _x in _list:
-    _a = "https://www.flashscore.com/match/"+_x[4:]+"/match-summary"
-    _lst.append(_a)
-  return _lst
+	_lst = list()
+ 
+	for _x in _list:
+		_a = "https://www.flashscore.com/match/"+_x[4:]+"/match-summary"
+		_lst.append(_a)
+	return _lst
 
+# Get name of file we want to save to
+def get_file_name(l):
+	# Split string using '/' as delimeter
+	str_list = l.split('/')
+	
+	# We will use country name + league name as file name
+	# Because some countries share similar league names, so we don't confuse them
+
+	file_name = str_list[-3] + "_"+str_list[-2]+".csv"
+	file_name = file_name.replace("-", "_")
+	print(file_name)
+	return None
 
 link1 = "https://www.flashscore.com/football/england/premier-league/"
+get_file_name(link1)
 _IDlist = getLinkID(link1)
-for _ in _IDlist:
-  print(_)
+
